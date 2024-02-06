@@ -1,3 +1,7 @@
-module github.com/fixme_my_friend/hw01_hello_otus
+module github.com/mainpluv/otus-projects/hw01_hello_otus
 
-go 1.19
+go 1.21.6
+
+require (
+	github.com/ozgio/strutil v0.4.0
+)
