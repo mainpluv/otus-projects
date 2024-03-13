@@ -49,8 +49,65 @@ func TestCache(t *testing.T) {
 		require.Nil(t, val)
 	})
 
-	t.Run("purge logic", func(t *testing.T) {
-		// Write me
+	t.Run("purge logic", func(t *testing.T) { // новые тесты
+		c := NewCache(3)
+		newC := c.Set("aaa", 10)
+		require.False(t, newC)
+		newC = c.Set("bbb", 15)
+		require.False(t, newC)
+		newC = c.Set("ccc", 20)
+		require.False(t, newC)
+		newC = c.Set("ddd", 30)
+		require.False(t, newC)
+
+		v, ok := c.Get("aaa")
+		require.False(t, ok)
+		require.Nil(t, v)
+	})
+
+	t.Run("purge with changes", func(t *testing.T) { // новые тесты
+		c := NewCache(3)
+		newC := c.Set("aaa", 10)
+		require.False(t, newC)
+		newC = c.Set("bbb", 15)
+		require.False(t, newC)
+		newC = c.Set("ccc", 20)
+		require.False(t, newC)
+
+		val, ok := c.Get("aaa")
+		require.True(t, ok)
+		require.Equal(t, 10, val)
+		val, ok = c.Get("bbb")
+		require.True(t, ok)
+		require.Equal(t, 15, val)
+
+		newC = c.Set("ddd", 40)
+		require.False(t, newC)
+
+		v, ok := c.Get("ссс")
+		require.False(t, ok)
+		require.Nil(t, v)
+	})
+
+	t.Run("Clear function", func(t *testing.T) { // новый тест для проверки метода clear()
+		c := NewCache(3)
+		newC := c.Set("aaa", 10)
+		require.False(t, newC)
+		newC = c.Set("bbb", 15)
+		require.False(t, newC)
+		newC = c.Set("ccc", 20)
+		require.False(t, newC)
+
+		c.Clear()
+		v, ok := c.Get("aaa")
+		require.Nil(t, v)
+		require.False(t, ok)
+		v, ok = c.Get("bbb")
+		require.Nil(t, v)
+		require.False(t, ok)
+		v, ok = c.Get("ccc")
+		require.Nil(t, v)
+		require.False(t, ok)
 	})
 }
 
