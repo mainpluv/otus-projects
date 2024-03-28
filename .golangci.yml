@@ -39,6 +39,8 @@ linters-settings:
         allow:
           - $gostd
           - github.com/ozgio/strutil
+          - github.com/stretchr/testify/require
+          - go.uber.org/goleak
         # Packages that are not allowed where the value is a suggestion.
         deny:
           - pkg: "github.com/sirupsen/logrus"
