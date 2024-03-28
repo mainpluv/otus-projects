@@ -35,10 +35,11 @@ func Run(tasks []Task, n, m int) error {
 				if err != nil {
 					mu.Lock()
 					errCount++
-					mu.Unlock()
 					if errCount >= m {
+						mu.Unlock()
 						return
 					}
+					mu.Unlock()
 				}
 			}
 		}()
